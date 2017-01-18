@@ -37,8 +37,10 @@ public class ExcelWriter {
 				Row row = sheet1.createRow(rownum++);
 				List<String> objArr = data.get(key);
 				int cellnum = 0;
+				org.apache.poi.ss.usermodel.Cell cell = row.createCell(cellnum++);
+				cell.setCellValue(key);
 				for (String obj : objArr) {
-					org.apache.poi.ss.usermodel.Cell cell = row.createCell(cellnum++);
+					cell = row.createCell(cellnum++);
 					cell.setCellValue(obj);
 				}
 			}
