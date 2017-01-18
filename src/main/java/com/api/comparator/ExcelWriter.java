@@ -32,12 +32,24 @@ public class ExcelWriter {
 			XSSFSheet sheet1 = workbook.createSheet("Rosetta Comparision");
 
 			Set<String> keyset = data.keySet();
-			int rownum = 0;
+			Row row = sheet1.createRow(0);
+			int cellnum = 0;
+			org.apache.poi.ss.usermodel.Cell cell = row.createCell(cellnum++);
+			cell.setCellValue("Input String");
+			cell = row.createCell(cellnum++);
+			cell.setCellValue("New Rosetta Processed String");
+			cell = row.createCell(cellnum++);
+			cell.setCellValue("New Rosetta Latency");
+			cell = row.createCell(cellnum++);
+			cell.setCellValue("Old Rosetta Processed String");
+			cell = row.createCell(cellnum++);
+			cell.setCellValue("Old Rosetta Latency");
+			int rownum = 1;
 			for (String key : keyset) {
-				Row row = sheet1.createRow(rownum++);
+				row = sheet1.createRow(rownum++);
 				List<String> objArr = data.get(key);
-				int cellnum = 0;
-				org.apache.poi.ss.usermodel.Cell cell = row.createCell(cellnum++);
+			    cellnum = 0;
+				cell = row.createCell(cellnum++);
 				cell.setCellValue(key);
 				for (String obj : objArr) {
 					cell = row.createCell(cellnum++);
