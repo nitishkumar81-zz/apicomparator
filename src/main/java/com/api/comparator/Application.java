@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.api.beans.RosettaResponseArray;
 import com.google.gson.Gson;
 
 @Configuration
@@ -33,15 +34,20 @@ public class Application implements CommandLineRunner {
 		for (String data : dataSet) {
 			String newResponse = ApiHandler.handle(newUrl, data);
 			String oldResponse = ApiHandler.handle(oldUrl, data);
+			RosettaResponseArray newresponseArray = gson.fromJson(newResponse, RosettaResponseArray.class);
+			RosettaResponseArray oldresponseArray = gson.fromJson(oldResponse, RosettaResponseArray.class);     
 			long start = System.currentTimeMillis();
 			Map newMap = gson.fromJson(newResponse, Map.class);
 			long newEnd = System.currentTimeMillis();
 			Map oldMap = gson.fromJson(oldResponse, Map.class);
 			long oldEnd = System.currentTimeMillis();
-			String oldSentence = String.valueOf(oldMap.get("processed_sentence"));
-			String newSentence = String.valueOf(newMap.get("processed_sentence"));
+			
+            String newSentence = newresponseArray.getProcessed_text().get(0).getSentences().get(0).getProcessed_sentence();
+            String oldSentence = oldresponseArray.getProcessed_text().get(0).getSentences().get(0).getProcessed_sentence();
+            
 			if (!oldSentence.equals(newSentence)) {
 				System.out.println(oldSentence);
+				System.out.println(newSentence);
 				List<String> strings = new ArrayList<>();
 				strings.add(newSentence);
 				strings.add(String.valueOf(newEnd - start));
