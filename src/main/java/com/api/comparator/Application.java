@@ -9,6 +9,7 @@ import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,8 @@ import com.google.gson.Gson;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
+@SpringBootApplication
+
 @ConfigurationProperties(locations = "classpath:api.properties")
 public class Application implements CommandLineRunner {
 	private String oldUrl;

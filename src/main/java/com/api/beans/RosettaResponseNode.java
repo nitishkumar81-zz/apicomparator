@@ -78,8 +78,4 @@ public class RosettaResponseNode {
 		this.tagCountMap = tagCountMap;
 	}
 	
-
-	public static void main(String[] args) {
-		
-	}
 }
