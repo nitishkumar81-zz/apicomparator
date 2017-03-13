@@ -29,8 +29,11 @@ public class ApiTest {
 					continue;
 				}
 
-				String data = row.getCell(0).getStringCellValue().toLowerCase();
-				data = "{\n  \"data\": [\n    \" " + data + " \"\n  ]\n\n}";
+				String data = row.getCell(0).getStringCellValue().trim();
+				if(data.length() == 0){
+					continue;
+				}
+				data = "{\"data\": [\""+data+"\"]}";
 				set.add(data);
 
 			}

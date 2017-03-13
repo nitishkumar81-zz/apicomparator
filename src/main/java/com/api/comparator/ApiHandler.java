@@ -9,6 +9,7 @@ public class ApiHandler {
 		try {
 			HttpResponse<String> response = Unirest.post(url)
 					  .header("content-type", "application/json")
+					  .header("accept", "application/json")
 					  .header("cache-control", "no-cache")
 					  .body(payload)
 					  .asString();

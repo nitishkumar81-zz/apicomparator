@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javafx.scene.control.Cell;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -38,12 +37,12 @@ public class ExcelWriter {
 			cell.setCellValue("Input String");
 			cell = row.createCell(cellnum++);
 			cell.setCellValue("New Rosetta Processed String");
-			cell = row.createCell(cellnum++);
-			cell.setCellValue("New Rosetta Latency");
+//			cell = row.createCell(cellnum++);
+//			cell.setCellValue("New Rosetta Latency");
 			cell = row.createCell(cellnum++);
 			cell.setCellValue("Old Rosetta Processed String");
-			cell = row.createCell(cellnum++);
-			cell.setCellValue("Old Rosetta Latency");
+//			cell = row.createCell(cellnum++);
+//			cell.setCellValue("Old Rosetta Latency");
 			int rownum = 1;
 			for (String key : keyset) {
 				row = sheet1.createRow(rownum++);
