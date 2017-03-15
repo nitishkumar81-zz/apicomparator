@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 public class Application implements CommandLineRunner {
 	private String oldUrl;
 	private String newUrl;
+	//private String newUpdatedUrl;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -41,10 +42,10 @@ public class Application implements CommandLineRunner {
 			long newEnd = System.currentTimeMillis();
 			String oldResponse = ApiHandler.handle(oldUrl, data);
 			long oldEnd = System.currentTimeMillis();
-
 			RosettaResponseArray newresponseArray = gson.fromJson(newResponse, RosettaResponseArray.class);
 			RosettaResponseArray oldresponseArray = gson.fromJson(oldResponse, RosettaResponseArray.class);
-			if(newresponseArray == null){
+		//	RosettaResponseArray newUpdatedResponseArray = gson.fromJson(newUpdatedResponse, RosettaResponseArray.class);
+	/*		if(newresponseArray == null){
 				List<String> strings = new ArrayList<>();
 				strings.add("Failed");
 				//strings.add(String.valueOf(newEnd - start));
@@ -58,44 +59,57 @@ public class Application implements CommandLineRunner {
 				strings.add("Failed");
 				//strings.add(String.valueOf(oldEnd - newEnd));
 				map.put(data, strings);
-			}else {
+			}
+			else {
 				List<String> strings = new ArrayList<>();
 				strings.add(newResponse);
 				//System.out.println(newResponse);
 				//strings.add(String.valueOf(newEnd - start));
 				strings.add(oldResponse);
+				//strings.add(newUpdatedResponse);
 				//System.out.println(oldResponse);
 				//strings.add(String.valueOf(oldEnd - newEnd));
 				map.put(data, strings);
-			} 
-//			if(newresponseArray !=null && oldresponseArray !=null){
-//				for(int i=0;i<newresponseArray.getProcessed_text().size();i++) {
-//					List<RosettaResponseNode> nodes = newresponseArray.getProcessed_text().get(i).getSentences();
-//					if (nodes.size() != oldresponseArray.getProcessed_text().get(i).getSentences().size()) {
-//						List<String> strings = new ArrayList<>();
-//						strings.add(newResponse);
-//						strings.add(String.valueOf(newEnd - start));
-//						strings.add(oldResponse);
-//						strings.add(String.valueOf(oldEnd - newEnd));
-//						map.put(data, strings);
-//						break;
-//					}
-//					for (int j = 0; j < nodes.size(); j++) {
-//						String newSentence = nodes.get(j).getProcessed_sentence();
-//						String oldSentence = oldresponseArray.getProcessed_text().get(i).getSentences().get(j).getProcessed_sentence();
-//						if (!oldSentence.equals(newSentence)) {
-//							List<String> strings = new ArrayList<>();
-//							strings.add(newSentence);
-//							strings.add(String.valueOf(newEnd - start));
-//							strings.add(oldSentence);
-//							strings.add(String.valueOf(oldEnd - newEnd));
-//							map.put(nodes.get(j).getOriginalSentence(), strings);
-//						}
-//
-//
-//					}
-//				}
-//			}
+			} */
+			if(newresponseArray !=null && oldresponseArray !=null){
+				for(int i=0;i<newresponseArray.getProcessed_text().size();i++) {
+					List<RosettaResponseNode> nodes = newresponseArray.getProcessed_text().get(i).getSentences();
+					if (nodes.size() != oldresponseArray.getProcessed_text().get(i).getSentences().size()) {
+						List<String> strings = new ArrayList<>();
+						strings.add(newResponse);
+						strings.add(String.valueOf(newEnd - start));
+						strings.add(oldResponse);
+						strings.add(String.valueOf(oldEnd - newEnd));
+						map.put(data, strings);
+						break;
+					}
+					for (int j = 0; j < nodes.size(); j++) {
+						String newSentence = nodes.get(j).getProcessed_sentence();
+						String oldSentence = oldresponseArray.getProcessed_text().get(i).getSentences().get(j).getProcessed_sentence();
+						if (!oldSentence.equals(newSentence)) {
+							List<String> strings = new ArrayList<>();
+								strings.add(newSentence);
+								strings.add(String.valueOf(newEnd - start));
+								strings.add(oldSentence);
+								strings.add(String.valueOf(oldEnd - newEnd));
+							
+							
+							map.put(nodes.get(j).getOriginalSentence(), strings);
+						}else {
+							List<String> strings = new ArrayList<>();
+							strings.add("");
+							strings.add(String.valueOf(newEnd - start));
+							strings.add("");
+							strings.add(String.valueOf(oldEnd - newEnd));
+						
+						
+						map.put(nodes.get(j).getOriginalSentence(), strings);
+						}
+
+
+					}
+				}
+			}
 
 		}
 		ExcelWriter.writeData(outputFile, map);

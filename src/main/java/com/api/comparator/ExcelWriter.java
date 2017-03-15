@@ -37,12 +37,14 @@ public class ExcelWriter {
 			cell.setCellValue("Input String");
 			cell = row.createCell(cellnum++);
 			cell.setCellValue("New Rosetta Processed String");
-//			cell = row.createCell(cellnum++);
-//			cell.setCellValue("New Rosetta Latency");
+			cell = row.createCell(cellnum++);
+			cell.setCellValue("New Rosetta Latency");
 			cell = row.createCell(cellnum++);
 			cell.setCellValue("Old Rosetta Processed String");
-//			cell = row.createCell(cellnum++);
-//			cell.setCellValue("Old Rosetta Latency");
+			cell = row.createCell(cellnum++);
+			cell.setCellValue("Old Rosetta Latency");
+			cell = row.createCell(cellnum++);
+//			cell.setCellValue("New Updated Rosetta process String");
 			int rownum = 1;
 			for (String key : keyset) {
 				row = sheet1.createRow(rownum++);
